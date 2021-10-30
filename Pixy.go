@@ -9,9 +9,15 @@ import (
 
 func main(){
 
+	var serverInt string
+	var serverAddr string
 
-	serverInt := os.Args[1]
-	serverAddr := os.Args[2]
+	if len(os.Args) > 1 {
+		serverInt = os.Args[1]
+		serverAddr = os.Args[2]
+	}else {
+		serverInt, serverAddr = services.GetOutbound()
+	}
 
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt)
