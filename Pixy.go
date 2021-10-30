@@ -25,7 +25,8 @@ func main(){
 	go services.ServeHttp()
 	go services.StartTftp()
 	go services.DhcpProcess(serverAddr, serverInt)
-
+	println("Press Ctrl-C to exit...")
+	println(services.GetOutbound())
 	go func(){
 		<- c
 			os.Exit(0)

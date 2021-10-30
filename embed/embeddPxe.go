@@ -2,17 +2,9 @@ package embed
 
 import (
 	"embed"
-	_ "embed"
 )
 
-//go:embed ldlinux.c32
-//go:embed ldlinux.e64
-//go:embed libcom32.c32
-//go:embed libutil.c32
-//go:embed  lpxelinux.0
-//go:embed menu.c32
-//go:embed pxeboot.0
-//go:embed syslinux.efi
-//go:embed vesamenu.c32
+//go:embed  ldlinux.e64 ldlinux.c32 libcom32.c32 libutil.c32 lpxelinux.0 menu.c32 pxeboot.0 pxelinux.0 syslinux.efi vesamenu.c32
 
 var F embed.FS
+

@@ -6,6 +6,7 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"strings"
 )
 
 type logStruct struct{
@@ -19,14 +20,17 @@ func GetOutbound() (string ,string) {
 		log.Fatal(err)
 	}
 	defer conn.Close()
-	localAddr := conn.LocalAddr().(*net.UDPAddr)
+	localAddr_raw := conn.LocalAddr().(*net.UDPAddr)
+	localAddr := strings.Split(localAddr_raw.String(),":")[0]
+	println(localAddr)
 	interfaces, _ := net.Interfaces()
 	for _, netInterface := range interfaces{
 		addrs, _ := netInterface.Addrs()
-		for _, addr := range addrs{
-			if addr.String() == string(localAddr.String()){
-				HandleLog("Default Interface: " + netInterface.Name + ":" +  localAddr.String() )
-				return netInterface.Name, localAddr.String()
+		for _, addr_raw := range addrs{
+			addr := strings.Split(addr_raw.String(), "/")[0]
+			if addr==localAddr{
+				HandleLog("Default Interface: " + netInterface.Name + ":" +  localAddr)
+				return netInterface.Name, localAddr
 			}
 		}
 
